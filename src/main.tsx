@@ -5,6 +5,7 @@ import GalleryPage from './gallery/pages/gallery-page';
 import WorkflowPage from './workflow/pages/workflow-page';
 import Landing from './landing/pages/landing-page.tsx';
 import './index.css'
+import Prompt from './Prompt/pages/Prompt.tsx';
 
 const router = createBrowserRouter([
   {
@@ -19,7 +20,10 @@ const router = createBrowserRouter([
     path: "/gallery/:slug",
     element: <WorkflowPage />,
   }
-
+    path: "/Prompt", 
+    element: <Prompt/>
+   
+  },
 ]);
 
 
