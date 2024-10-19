@@ -4,7 +4,7 @@ import {createBrowserRouter, RouterProvider,} from  "react-router-dom";
 import GalleryPage from './gallery/pages/gallery-page';
 import './index.css'
 import Landing from './landing/pages/landing-page.tsx';
-
+import Prompt from './Prompt/pages/Prompt.tsx';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -14,6 +14,13 @@ const router = createBrowserRouter([
     path: "/gallery",
     element: <GalleryPage />,
   },
+  {
+    path: "/Prompt", 
+    element: <Prompt/>
+   
+  },
+
+
 
 ]);
 
