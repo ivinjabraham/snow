@@ -2,7 +2,6 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import {createBrowserRouter, RouterProvider,} from  "react-router-dom";
 import GalleryPage from './gallery/pages/gallery-page';
-import WorkflowPage from './workflow/pages/workflow-page';
 import Landing from './landing/pages/landing-page.tsx';
 import './index.css'
 import Prompt from './prompt/pages/prompt.tsx';
@@ -17,18 +16,13 @@ const router = createBrowserRouter([
     path: "/gallery",
     element: <GalleryPage />,
   },
-  {
-    path: "/gallery/:slug",
-    element: <WorkflowPage />,
-  },
   { 
-    path:"/workflowtemp",
+    path:"/gallery/:slug",
     element: <Flow/>,
   },
   {
-    path: "/prompt", 
+    path: "/prompt/:slug", 
     element: <Prompt/>
-   
   },
 ]);
 

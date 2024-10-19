@@ -117,7 +117,7 @@ const App: React.FC = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 w-full max-w-screen-lg justify-items-center">
         {cards.map((card) => (
           <div key={card.id} className="flex justify-center items-center w-full">
-            <Card title={card.title} description={card.description} />
+            <Card id={card.id} title={card.title} description={card.description} />
           </div>
         ))}
       </div>

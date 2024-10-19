@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Typewriter from 'typewriter-effect';
 import ArrowCircleUpTwoToneIcon from '@mui/icons-material/ArrowCircleUpTwoTone';
+import { useNavigate } from "react-router-dom";  
 const Prompt = () => {
   const [query, setQuery] = useState("");
   const [savedQuery, setSavedQuery] = useState("");
@@ -17,6 +18,7 @@ const Prompt = () => {
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       saveQuery();
+
     }
   };
 
