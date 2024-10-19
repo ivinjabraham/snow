@@ -412,85 +412,84 @@ const workflowJson = {
 
 
 
-const dagreGraph = new dagre.graphlib.Graph();
-dagreGraph.setDefaultEdgeLabel(() => ({}));
+  const dagreGraph = new dagre.graphlib.Graph();
+  dagreGraph.setDefaultEdgeLabel(() => ({}));
+  
+  const getLayoutedElements = (nodes: any[], edges: any[]) => {
+    const nodeWidth = 172;
+    const nodeHeight = 36;
+    dagreGraph.setGraph({ rankdir: 'TB' }); // Top to Bottom layout
+  
+    nodes.forEach((node) => {
+      dagreGraph.setNode(node.id, { width: nodeWidth, height: nodeHeight });
+    });
+  
+    edges.forEach((edge) => {
+      dagreGraph.setEdge(edge.source, edge.target);
+    });
+  
+    dagre.layout(dagreGraph);
+  
+    nodes.forEach((node) => {
+      const nodeWithPosition = dagreGraph.node(node.id);
+      node.position = {
+        x: nodeWithPosition.x - nodeWidth / 2,
+        y: nodeWithPosition.y - nodeHeight / 2,
+      };
+    });
+  
+    return { nodes, edges };
+  };
+  
+  const initialNodes: any[] = [
+  
+  ];
+  
+  const initialEdges: any[] = [
+  
+  ];
+  
+  export default function Flow() {
+  
+  
+    const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
+    const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  
+    useEffect(() => {
+        let graph: Graph = create_graph(parse_workflow(extractWorkflowData(workflowJson)));
 
-const getLayoutedElements = (nodes: any[], edges: any[]) => {
-  const nodeWidth = 172;
-  const nodeHeight = 36;
-  dagreGraph.setGraph({ rankdir: 'TB' }); // Top to Bottom layout
-
-  nodes.forEach((node) => {
-    dagreGraph.setNode(node.id, { width: nodeWidth, height: nodeHeight });
-  });
-
-  edges.forEach((edge) => {
-    dagreGraph.setEdge(edge.source, edge.target);
-  });
-
-  dagre.layout(dagreGraph);
-
-  nodes.forEach((node) => {
-    const nodeWithPosition = dagreGraph.node(node.id);
-    node.position = {
-      x: nodeWithPosition.x - nodeWidth / 2,
-      y: nodeWithPosition.y - nodeHeight / 2,
-    };
-  });
-
-  return { nodes, edges };
-};
-
-const initialNodes: any[] = [
-
-];
-
-const initialEdges: any[] = [
-
-];
-
-export default function Flow() {
-
-
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-
-  useEffect(() => {
-
-
-    let graph: Graph = create_graph(parse_workflow(extractWorkflowData(workflowJson)));
-    getLayoutedElements(
-          nodes,
-          edges
-      );
-
-
-    setNodes([...graph.nodes]);
-    setEdges([...graph.edges]);
-  }, []);
-
-  return (
-    <div className='flex flex-row bg-slate-400'>
-        <div style={{ width: '70%', height: '100vh' }}>
-        <ReactFlow
-            nodes={nodes}
-            edges={edges}
-            onNodesChange={onNodesChange}
-            onEdgesChange={onEdgesChange}
-            fitView
-        />
-        </div>
-        <div className='w-[30%] flex flex-col bg-deep-blue m-5 rounded-md'>
-            <div className=' bg-light-blue h-5/6 m-5 mb-0 rounded-md flex justify-center items-center'>
-                Output text is recieved here...
-            </div>
-            <div className=' h-1/6 m-5 flex items-center justify-center'>
-                <div className='h-20 w-36 text-sm font-semibold bg-light-blue rounded-md flex justify-center items-center cursor-pointer shadow-2xl'>
-                    INITIALISE
-                </div>
-            </div>
-        </div>
-    </div>
-
-  );
-}
+        const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
+          graph.nodes,
+          graph.edges
+        );
+    
+        setNodes([...layoutedNodes]);
+        setEdges([...layoutedEdges]);
+    }, []);
+  
+    return (
+      <div className='flex flex-row bg-slate-400'>
+          <div style={{ width: '70%', height: '100vh' }}>
+          <ReactFlow
+              nodes={nodes}
+              edges={edges}
+              onNodesChange={onNodesChange}
+              onEdgesChange={onEdgesChange}
+              fitView
+          />
+          </div>
+          <div className='w-[30%] flex flex-col bg-deep-blue m-5 rounded-md'>
+              <div className=' bg-light-blue h-5/6 m-5 mb-0 rounded-md flex justify-center items-center'>
+                  Output text is recieved here...
+              </div>
+              <div className=' h-1/6 m-5 flex items-center justify-center'>
+                  <div className='h-20 w-36 text-sm font-semibold bg-light-blue rounded-md flex justify-center items-center cursor-pointer shadow-2xl'>
+                      INITIALISE
+                  </div>
+              </div>
+          </div>
+      </div>
+  
+    );
+  }
+  
