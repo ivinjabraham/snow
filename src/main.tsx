@@ -6,6 +6,7 @@ import WorkflowPage from './workflow/pages/workflow-page';
 import Landing from './landing/pages/landing-page.tsx';
 import './index.css'
 import Prompt from './prompt/pages/prompt.tsx';
+import Flow from './workflow-v2/pages/workflow-v2.tsx';
 
 const router = createBrowserRouter([
   {
@@ -20,8 +21,12 @@ const router = createBrowserRouter([
     path: "/gallery/:slug",
     element: <WorkflowPage />,
   },
+  { 
+    path:"/workflowtemp",
+    element: <Flow/>,
+  },
   {
-    path: "/Prompt", 
+    path: "/prompt", 
     element: <Prompt/>
    
   },
