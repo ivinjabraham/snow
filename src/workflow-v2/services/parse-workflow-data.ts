@@ -116,49 +116,61 @@ function handleSimpleTask(task: any, ir: Ir, refNames: string[], taskId: number)
   });
 }
 
+/**
+ * Creates a graph representation from an Intermediate Representation (Ir).
+ *
+ * @param {Ir} intermediate_representation - The Intermediate Representation from which to create the graph.
+ * @returns {Graph} - The generated graph containing nodes and edges.
+ */
 export function create_graph(intermediate_representation: Ir): Graph {
+  // Initialize nodes and edges arrays
   const nodes: Node[] = [];
   const edges: Edge[] = [];
-  let graph: Graph = {
+  
+  // Create the graph object
+  const graph: Graph = {
     nodes: [],
     edges: [],
   };
 
-  let final_node: Node;
-  let start: Node = {
+  // Create and add the Start node
+  const start: Node = {
     id: "Start",
     data: { label: "Start" },
     position: { x: 0, y: 0 },
   };
 
   nodes.push(start);
+  let edgeId: number = 0; // Initialize edge ID
+  let finalNode: Node | null = null; // Track the last task node
 
-  let edge_id: number = 0;
-  console.log(intermediate_representation);
+  // Iterate through each task in the intermediate representation
   intermediate_representation.tasks.forEach((task) => {
-    let node: Node = {
+    // Create a new node for the task
+    const node: Node = {
       id: task.name,
       data: { label: task.name },
       position: { x: 0, y: 0 },
     };
 
     nodes.push(node);
-    final_node = node;
+    finalNode = node; // Update the last node added
 
-    task.dependencies.forEach((str) => {
-      let edge: Edge = {
-        id: edge_id,
-        source: str,
+    // Create edges for each dependency of the task
+    task.dependencies.forEach((dependency) => {
+      const edge: Edge = {
+        id: edgeId,
+        source: dependency,
         target: task.name,
       };
 
-      edge_id++;
-
       edges.push(edge);
+      edgeId++; // Increment edge ID
     });
   });
 
-  let end: Node = {
+  // Create and add the End node
+  const end: Node = {
     id: "End",
     data: { label: "End" },
     position: { x: 0, y: 0 },
@@ -166,16 +178,20 @@ export function create_graph(intermediate_representation: Ir): Graph {
 
   nodes.push(end);
 
-  let final_edge: Edge = {
-    id: edge_id,
-    source: final_node.id,
-    target: "End",
-  };
+  // Create an edge from the last task node to the End node
+  if (finalNode) {
+    const finalEdge: Edge = {
+      id: edgeId, // Ensure edge ID is a string
+      source: finalNode.id,
+      target: "End",
+    };
 
-  edges.push(final_edge);
+    edges.push(finalEdge);
+  }
 
-  console.log(graph);
+  // Assign the nodes and edges to the graph
   graph.nodes = nodes;
   graph.edges = edges;
+
   return graph;
 }
