@@ -1,7 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
 import {createBrowserRouter, RouterProvider,} from  "react-router-dom";
+import GalleryPage from './gallery/pages/gallery-page';
 import './index.css'
 
 const router = createBrowserRouter([
@@ -9,6 +9,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <div>Hello world!</div>,
   }, 
+  {
+    path: "/gallery",
+    element: <GalleryPage />,
+  },
 
 ]);
 
