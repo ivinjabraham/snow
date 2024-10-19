@@ -24,6 +24,7 @@ const router = createBrowserRouter([
     path: "/prompt/:slug", 
     element: <Prompt/>
   },
+  
 ]);
 
 
