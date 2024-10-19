@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import Card from '../components/card';
+import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
+import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
 
 interface CardInfo {
   id: number;
@@ -23,18 +25,33 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="relative flex flex-col items-center h-screen">
-      <div className="flex flex-wrap justify-start items-start w-full">
-        {cards.map((card) => (
-          <Card key={card.id} title={card.title} description={card.description} />
-        ))}
+    <div className="relative flex flex-col items-center h-screen bg-[#dce4ef]" >
+      {/* Search Bar with Add Button */}
+      <div className="flex justify-center items-center w-full p-6 bg-[#dce4ef] " >
+        <div className="flex items-center w-3/4 rounded-full px-2 py-2 shadow-md relative" style={{ backgroundColor: '#5E6D8C' }}>
+          <SearchTwoToneIcon className="text-white absolute left-4" />
+          <input
+            type="text"
+            placeholder="Search for a workflow..."
+            className="w-full bg-transparent text-white outline-none placeholder-white text-center pl-10"
+          />
+          <button
+            className="ml-4 text-white"
+            onClick={addCard}
+          >
+            <AddCircleTwoToneIcon style={{ fontSize: 30 }} />
+          </button>
+        </div>
       </div>
-      <button
-        className="fixed bottom-5 right-5 w-16 h-16 rounded-full bg-blue-500 text-white text-2xl flex items-center justify-center shadow-lg hover:bg-blue-600 transition"
-        onClick={addCard}
-      >
-        +
-      </button>
+
+      {/* Card Grid Layout */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 w-full max-w-screen-lg justify-items-center">
+          {cards.map((card) => (
+            <div key={card.id} className="flex justify-center items-center w-full">
+              <Card title={card.title} description={card.description} />
+            </div>
+             ))}
+             </div>
     </div>
   );
 };
