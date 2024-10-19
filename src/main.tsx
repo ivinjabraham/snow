@@ -5,7 +5,7 @@ import GalleryPage from './gallery/pages/gallery-page';
 import WorkflowPage from './workflow/pages/workflow-page';
 import Landing from './landing/pages/landing-page.tsx';
 import './index.css'
-import Prompt from './Prompt/pages/Prompt.tsx';
+import Prompt from './prompt/pages/prompt.tsx';
 
 const router = createBrowserRouter([
   {
