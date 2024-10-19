@@ -14,6 +14,6 @@ const Landing: React.FC = () => {
         <LandingButton/>
     </div>
   );
-};
+};  
 
 export default Landing;

@@ -19,7 +19,8 @@ const router = createBrowserRouter([
   {
     path: "/gallery/:slug",
     element: <WorkflowPage />,
-  }
+  },
+  {
     path: "/Prompt", 
     element: <Prompt/>
    
