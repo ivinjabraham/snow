@@ -11,7 +11,8 @@ module.exports = {
       },
       colors: {
         'deep-blue': '#222B3D',
-      },
+        'light-blue' : '#D9E5F1'
+      }, 
     },
   },
   plugins: [],
