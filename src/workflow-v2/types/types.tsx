@@ -9,7 +9,7 @@ export interface Workflow {
 export interface Task {
   refName: string;
   type: string;
-  input: { [key: string] : string };
+  input: { [key: string]: string };
 }
 
 export interface WorkflowDef {
@@ -32,7 +32,7 @@ export interface Position {
 }
 
 export interface NodeData {
-  label : string;
+  label: string;
 }
 
 export interface Node {
