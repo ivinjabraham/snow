@@ -36,15 +36,15 @@ export interface NodeData {
 }
 
 export interface Node {
-  id: number;
+  id: string;
   data: NodeData;
   position: Position;
 }
 
 export interface Edge {
-  id: string;
-  source: number;
-  target: number;
+  id: number;
+  source: string;
+  target: string;
 }
 
 export interface Graph {

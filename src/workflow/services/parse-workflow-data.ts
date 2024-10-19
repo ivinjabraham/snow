@@ -1,6 +1,6 @@
 import { Edge, Graph, Ir, Ir_task, Node, Workflow } from "../types/types";
 
-function parse_workflow(workflow: Workflow): Ir {
+export function parse_workflow(workflow: Workflow): Ir {
   let wfDef = workflow.workflowDef;
   const ir: Ir = {
     tasks: []
@@ -13,6 +13,10 @@ function parse_workflow(workflow: Workflow): Ir {
 
     switch (task.type) {
       case "SIMPLE":
+        if (!task.input) {
+        console.log("yes");
+        break;
+        }
         Object.keys(task.input).forEach((key) => {
           const value = task.input[key];
 
@@ -42,22 +46,54 @@ function parse_workflow(workflow: Workflow): Ir {
         console.error("Unknown workflow task type.");
     };
   });
-
+  console.log(ir);
+  ir.tasks[0].dependencies.push("Start");
   return ir;
 }
 
 export function create_graph(intermediate_representation: Ir): Graph {
   const nodes: Node[] = [];
   const edges: Edge[] = [];
-  let graph: Graph;
+  let graph: Graph = {
+    nodes: [],
+    edges: [],
+  };
 
   let start: Node = {
-    id: 0,
+    id: "Start",
     data: { label: 'Start' },
     position: { x: 0, y: 0 },
   };
 
   nodes.push(start);
 
+  intermediate_representation.tasks.forEach((task) => {
+    let node: Node = {
+      id: task.name,
+      data: { label: task.name},
+      position: { x: 0, y: 0 }
+    };
+
+    nodes.push(node);
+
+    let edge_id: number = 0;
+    task.dependencies.forEach((str) => {
+      let edge: Edge = {
+        id: edge_id,
+        source: task.id.toString(),
+        target: str
+      };
+
+      edge_id++;
+
+    edges.push(edge);
+    });
+
+  });
+
+
+
+  graph.nodes = nodes;
+  graph.edges = edges;
   return graph;
 }
