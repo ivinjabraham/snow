@@ -1,13 +1,13 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
 import {createBrowserRouter, RouterProvider,} from  "react-router-dom";
 import './index.css'
+import Landing from './landing/pages/landing-page.tsx';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <div>Hello world!</div>,
+    element: <Landing/>,
   }, 
 
 ]);
