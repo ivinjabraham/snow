@@ -3,24 +3,21 @@ export interface Workflow {
   status: string;
   input: object;
   output: object;
-  tasks: Task[];
+  workflowDef: WorkflowDef;
 }
 
 export interface Task {
-  ref_name: string;
-  task_type: string;
-  status: string;
-  input: object;
-  output: object;
-  workflow_task: WorkflowTask;
+  refName: string;
+  type: string;
+  input: { [key: string] : string };
 }
 
-export interface WorkflowTask {
-  type: string;
+export interface WorkflowDef {
+  tasks: Task[];
 }
 
 export interface Ir_task {
-  id: string;
+  id: number;
   name: string;
   dependencies: string[];
 }

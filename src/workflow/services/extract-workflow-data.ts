@@ -1,17 +1,12 @@
 import { Workflow, Task } from "../types/types";
 
 export function extractWorkflowData(workflowJson: any): Workflow {
-  const { wfId, wfStatus, wfInput, wfOutput, wfTasks } = workflowJson;
+  const { wfId, wfStatus, wfInput, wfOutput, wfDef } = workflowJson;
 
-  const parsedTasks: Task[] = wfTasks.map((task: any) => ({
-    ref_name: task.referenceTaskName,
-    task_type: task.taskType,
-    status: task.status,
+  const parsedTasks: Task[] = wfDef.tasks.map((task: any) => ({
+    refName: task.taskReferenceName,
+    type: task.type,
     input: task.inputData,
-    output: task.outputData,
-    workflow_task: {
-      type: task.workflowTask.type,
-    },
   }));
 
   return {
@@ -19,6 +14,6 @@ export function extractWorkflowData(workflowJson: any): Workflow {
     id: wfId,
     input: wfInput,
     output: wfOutput,
-    tasks: parsedTasks,   
+    workflowDef: { tasks: parsedTasks },
   };
 }
