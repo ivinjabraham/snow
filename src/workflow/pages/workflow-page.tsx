@@ -1,7 +1,9 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import Button from '../components/button';
-import WorkflowGraph from '../components/workflowgq';
+import { extractWorkflowData } from '../services/extract-workflow-data';
+import { Workflow } from '../types/types';
+import { create_graph, parse_workflow } from '../services/parse-workflow-data';
 
 const workflowJson = {
   "ownerApp": "",
@@ -405,11 +407,13 @@ const WorkflowPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
 
   const handleClick = () => {
+    let wf: Workflow = extractWorkflowData(workflowJson);
+    let graph = create_graph(parse_workflow(wf));
+    console.log(graph);
   };
 
   return (
     <div className="relative flex flex-col items-center justify-center h-screen bg-gray-100">
-      <WorkflowGraph workflowJson={workflowJson} />
       <Button onClick={handleClick} label="Initiate" />
     </div>
   );
